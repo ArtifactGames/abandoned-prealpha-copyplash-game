@@ -19,6 +19,10 @@ public class MainMenuGM : MonoBehaviour {
 		SceneManager.LoadScene("game-session");
 	}
 
+	public void options(){
+		SceneManager.LoadScene("options");
+	}
+
 	public void exit(){
 		Application.Quit();
 	}
