@@ -3,18 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BootWarningText : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+public class ErrorConnectingText : MonoBehaviour {
 	public void goToMenu(){
 		SceneManager.LoadScene("main-menu");
 	}

@@ -6,8 +6,8 @@ using WebSocketSharp;
 
 public class ServerManager
 {
-    private static string serverAddress = "127.0.0.1";
-    private static string serverPort = "8080";
+    private static string serverAddress = "8563c8fb.ngrok.io";
+    private static string serverPort = "80";
 
     /// <summary>
     /// A WebSocket object with the current WebSocket connection.
@@ -44,8 +44,13 @@ public class ServerManager
     /// </summary>
     public static void EstablishConnection()
     {
-        ws = new WebSocket(string.Format("ws://{0}:{1}", serverAddress, serverPort));
+        ws = new WebSocket(string.Format("ws://{0}:{1}/{2}", serverAddress, serverPort, GameInfo.lobby.id));
         ws.Connect();
+    }
+
+    public static void SendRequest(CommandRequest c)
+    {
+        ws.Send(JsonUtility.ToJson(c));
     }
 
 

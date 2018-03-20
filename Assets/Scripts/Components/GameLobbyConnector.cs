@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameLobbyConnector : MonoBehaviour {
+
+	public GameObject connectingText;
+	public GameObject loadingIcon;
+	public GameObject errorConnectingText;
 
 	// Use this for initialization
 	void Start () {
@@ -12,8 +17,9 @@ public class GameLobbyConnector : MonoBehaviour {
 
 	private void onCreateLobby(RequestStatus status, string response){
 		if(status == RequestStatus.ERROR){
-			// TODO: Display error text and a button to go back to the menu.
-			Debug.Log("Error");
+			connectingText.SetActive(false);
+			loadingIcon.SetActive(false);
+			errorConnectingText.SetActive(true);
 		}else if(status == RequestStatus.OK){
 			GameInfo.lobby = JsonUtility.FromJson<Lobby>(response);
             SceneManager.LoadScene("game-lobby");

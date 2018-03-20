@@ -22,10 +22,21 @@ public class GameLobbyGM : MonoBehaviour
         }
 
         ServerManager.EstablishConnection();
-        ServerManager.ws.OnMessage += (sender, e) =>
-        {
-            // TODO: Handle players joining the lobby.
-            Debug.Log(e.Data);
-        };
+        ServerManager.ws.OnMessage += this.OnRecieveResponse;
+    }
+
+    private void OnRecieveResponse(object sender, WebSocketSharp.MessageEventArgs e)
+    {
+        // TODO: Handle players joining the lobby.
+        CommandResponse c = JsonUtility.FromJson<CommandResponse>(e.Data);
+        Debug.Log("Recieved a CommandResponse:");
+        Debug.Log(c.ToString());
+    }
+
+    public void buttonToSendThings(){
+        // TODO: Please remove me, this is hideous.
+        CommandRequest c = new CommandRequest();
+        c.action = CommandAction.RETRIEVE;
+        ServerManager.SendRequest(c);
     }
 }
