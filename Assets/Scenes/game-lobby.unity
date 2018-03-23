@@ -652,6 +652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passwordText: {fileID: 584405502}
+  playerListText: {fileID: 1448179357}
 --- !u!224 &1319085775
 RectTransform:
   m_ObjectHideFlags: 0

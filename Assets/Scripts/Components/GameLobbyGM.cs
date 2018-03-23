@@ -8,6 +8,7 @@ public class GameLobbyGM : MonoBehaviour
 {
 
     public Text passwordText;
+    public Text playerListText;
 
     // Use this for initialization
     void Start()
@@ -29,11 +30,25 @@ public class GameLobbyGM : MonoBehaviour
     {
         // TODO: Handle players joining the lobby.
         CommandResponse c = JsonUtility.FromJson<CommandResponse>(e.Data);
+        if (c.action == CommandAction.UPDATE_PLAYERS)
+        {
+            UpdatePlayerList(JsonUtility.FromJson<List<Player>>(c.data));
+        }
         Debug.Log("Recieved a CommandResponse:");
         Debug.Log(c.ToString());
     }
 
-    public void buttonToSendThings(){
+    private void UpdatePlayerList(List<Player> p)
+    {
+        // Update internal lobby player list
+        GameInfo.lobby.players = p;
+
+        // Update player list text
+        playerListText.text = Player.ListToString(GameInfo.lobby.players);
+    }
+
+    public void buttonToSendThings()
+    {
         // TODO: Please remove me, this is hideous.
         CommandRequest c = new CommandRequest();
         c.action = CommandAction.RETRIEVE;

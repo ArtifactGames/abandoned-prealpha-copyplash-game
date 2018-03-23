@@ -6,5 +6,7 @@ using UnityEngine;
 public class Lobby {
 	public string id;
 	public int password;
+
+	public List<Player> players;
 	
 }

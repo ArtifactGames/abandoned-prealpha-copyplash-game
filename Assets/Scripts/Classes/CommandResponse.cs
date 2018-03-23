@@ -6,6 +6,7 @@ using UnityEngine;
 public class CommandResponse
 {
 	public CommandAction action;
+    public string data;
 
     public override string ToString()
     {
