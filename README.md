@@ -11,6 +11,9 @@ Its purpose is to run in a computer all players can see.
 ```bash
 # Clone the repository
 git clone https://github.com/ArtifactGames/copyplash-game
-
-# Then open the downloaded folder with Unity 2017.3.1f1
 ```
+
+## Execution
+ - Open the project folder with Unity (2017.3.1f1)
+ - Open the `boot` scene under the `Scenes` folder 
+ - Press the `play` button 
