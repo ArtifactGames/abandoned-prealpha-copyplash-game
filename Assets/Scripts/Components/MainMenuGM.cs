@@ -16,7 +16,7 @@ public class MainMenuGM : MonoBehaviour {
 	}
 
 	public void newGame(){
-		SceneManager.LoadScene("game-session");
+		SceneManager.LoadScene("game-connection");
 	}
 
 	public void options(){
