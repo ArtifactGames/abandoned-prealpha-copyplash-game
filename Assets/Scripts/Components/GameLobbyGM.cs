@@ -29,10 +29,30 @@ public class GameLobbyGM : MonoBehaviour
     private void OnRecieveResponse(object sender, WebSocketSharp.MessageEventArgs e)
     {
         // TODO: Handle players joining the lobby.
-        CommandResponse c = JsonUtility.FromJson<CommandResponse>(e.Data);
+        
+        CommandResponse c;
+
+        try { 
+            c = JsonUtility.FromJson<CommandResponse>(e.Data);
+        } catch(NullReferenceException) {
+            Debug.LogWarning("Wrong Command Response serialization");
+            c = null;
+        }
+
+        if (c == null) {
+            return;
+        }
+
         if (c.action == CommandAction.UPDATE_PLAYERS)
         {
-            UpdatePlayerList(JsonUtility.FromJson<List<Player>>(c.data));
+            try {
+                PlayerList playerList = JsonUtility.FromJson<PlayerList>(c.payload);
+                UpdatePlayerList(PlayerList.AsList(playerList));
+            } catch(NullReferenceException) { 
+                Debug.LogWarning("Wrong Player payload serialization");
+            } catch(UnityException err) {
+                Debug.LogError(err);
+            }
         }
         Debug.Log("Recieved a CommandResponse:");
         Debug.Log(c.ToString());

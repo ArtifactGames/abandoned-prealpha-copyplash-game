@@ -25,4 +25,8 @@ public class Player
 public class PlayerList
 {
     public Player[] players;
+
+    public static List<Player> AsList(PlayerList playerList) {
+        return new List<Player>(playerList.players);
+    }
 }
