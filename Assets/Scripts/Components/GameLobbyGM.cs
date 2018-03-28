@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameLobbyGM : MonoBehaviour
@@ -24,38 +25,63 @@ public class GameLobbyGM : MonoBehaviour
 
         ServerManager.EstablishConnection();
         ServerManager.ws.OnMessage += this.OnRecieveResponse;
+        SceneManager.LoadScene("first-round-explanation");
     }
 
     private void OnRecieveResponse(object sender, WebSocketSharp.MessageEventArgs e)
     {
         // TODO: Handle players joining the lobby.
-        
+
         CommandResponse c;
 
-        try { 
+        try
+        {
             c = JsonUtility.FromJson<CommandResponse>(e.Data);
-        } catch(NullReferenceException) {
+        }
+        catch (NullReferenceException)
+        {
             Debug.LogWarning("Wrong Command Response serialization");
             c = null;
         }
 
-        if (c == null) {
+        if (c == null)
+        {
             return;
         }
 
-        if (c.action == CommandAction.UPDATE_PLAYERS)
+        switch (c.action)
         {
-            try {
-                PlayerList playerList = JsonUtility.FromJson<PlayerList>(c.payload);
-                UpdatePlayerList(PlayerList.AsList(playerList));
-            } catch(NullReferenceException) { 
-                Debug.LogWarning("Wrong Player payload serialization");
-            } catch(UnityException err) {
-                Debug.LogError(err);
-            }
+            case CommandAction.UPDATE_PLAYERS:
+                this.OnUpdatePlayerCommandAction(c);
+                break;
+            case CommandAction.START_GAME:
+                break;
+            default:
+                Debug.LogError("NOT IMPLEMENTED: CommandAction not implemented");
+                break;
         }
-        Debug.Log("Recieved a CommandResponse:");
-        Debug.Log(c.ToString());
+
+        
+    }
+
+    private void OnStartGameCommandAction(CommandResponse c){
+        SceneManager.LoadScene("first-round-explanation");
+    }
+
+    private void OnUpdatePlayerCommandAction(CommandResponse c){
+        try
+        {
+            PlayerList playerList = JsonUtility.FromJson<PlayerList>(c.payload);
+            UpdatePlayerList(PlayerList.AsList(playerList));
+        }
+        catch (NullReferenceException)
+        {
+            Debug.LogWarning("Wrong Player payload serialization");
+        }
+        catch (UnityException err)
+        {
+            Debug.LogError(err);
+        }
     }
 
     private void UpdatePlayerList(List<Player> p)
@@ -65,13 +91,5 @@ public class GameLobbyGM : MonoBehaviour
 
         // Update player list text
         playerListText.text = Player.ListToString(GameInfo.lobby.players);
-    }
-
-    public void buttonToSendThings()
-    {
-        // TODO: Please remove me, this is hideous.
-        CommandRequest c = new CommandRequest();
-        c.action = CommandAction.RETRIEVE;
-        ServerManager.SendRequest(c);
     }
 }
