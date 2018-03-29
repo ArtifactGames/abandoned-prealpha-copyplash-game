@@ -25,7 +25,6 @@ public class GameLobbyGM : MonoBehaviour
 
         ServerManager.EstablishConnection();
         ServerManager.ws.OnMessage += this.OnRecieveResponse;
-        SceneManager.LoadScene("first-round-explanation");
     }
 
     private void OnRecieveResponse(object sender, WebSocketSharp.MessageEventArgs e)
