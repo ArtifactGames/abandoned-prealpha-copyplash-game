@@ -6,8 +6,8 @@ using WebSocketSharp;
 
 public class ServerManager
 {
-    private static string serverAddress = "8563c8fb.ngrok.io";
-    private static string serverPort = "80";
+    private static string serverAddress = "127.0.0.1";
+    private static string serverPort = "8080";
 
     /// <summary>
     /// A WebSocket object with the current WebSocket connection.

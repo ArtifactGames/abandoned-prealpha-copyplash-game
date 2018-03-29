@@ -24,11 +24,11 @@ public class GameLobbyGM : MonoBehaviour
         }
 
         ServerManager.EstablishConnection();
-        ServerManager.ws.OnMessage += this.OnRecieveResponse;
+        ServerManager.ws.OnMessage += this.OnReceiveResponse;
         SceneManager.LoadScene("first-round-explanation");
     }
 
-    private void OnRecieveResponse(object sender, WebSocketSharp.MessageEventArgs e)
+    private void OnReceiveResponse(object sender, WebSocketSharp.MessageEventArgs e)
     {
         // TODO: Handle players joining the lobby.
 
