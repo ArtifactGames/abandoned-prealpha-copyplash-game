@@ -10,11 +10,16 @@ public class GameLobbyGM : MonoBehaviour
 
 	public Text passwordText;
 	public Text playerListText;
+	public GameObject startButtonGO;
+
 	private String newPlayerList;
+	private int playerCount;
 
 	// Use this for initialization
 	void Start ()
 	{
+		
+		startButtonGO.SetActive (false);
 		newPlayerList = "";
 		try {
 			playerListText.text = "None";
@@ -82,25 +87,39 @@ public class GameLobbyGM : MonoBehaviour
 
 	private void UpdatePlayerList (List<Player> p)
 	{
+		List<Player> players = GameInfo.lobby.players;
 
 		// Update internal lobby player list
-		if (GameInfo.lobby.players == null) {
-			GameInfo.lobby.players = new List<Player> ();
+		if (players == null) {
+			players = new List<Player> ();
 		}
 		if (p != null) {
-			GameInfo.lobby.players = p;
-			newPlayerList = Player.ListToString (GameInfo.lobby.players);
+			players = p;
+			newPlayerList = Player.ListToString (players);
+			playerCount = players.Count;
+
 		}
 		
+	}
+
+	public void loadFirstScene ()
+	{
+		SceneManager.LoadScene ("first-round-explanation");
 	}
 
 	void Update ()
 	{
 		// Update player list text
 		if (newPlayerList != "") {
-			Debug.Log (newPlayerList);
 			playerListText.text = newPlayerList;
 			newPlayerList = "";
+			//manage start button
+			if (playerCount > 1) {
+				startButtonGO.SetActive (true);
+			} else {
+				startButtonGO.SetActive (false);
+			}
 		}
+
 	}
 }

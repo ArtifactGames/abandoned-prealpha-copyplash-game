@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/game-connection.unity
     guid: 782806b09550f204a95f66285e6b3e37
   - enabled: 1
-    path: Assets/Scenes/game-first-round-explanation.unity
+    path: Assets/Scenes/first-round-explanation.unity
     guid: d8038f226376fdd45b48612836b32fd5
   - enabled: 1
     path: Assets/Scenes/first-round-wait.unity
