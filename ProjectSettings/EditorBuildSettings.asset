@@ -26,3 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/first-round-wait.unity
     guid: b7e3789699cd35b4ab35c82aff966897
+  - enabled: 1
+    path: Assets/Scenes/second-round-explanation.unity
+    guid: cc3f168386be1fb4795b3adf355cd72a
+  - enabled: 1
+    path: Assets/Scenes/second-round-wait.unity
+    guid: 4e486d3434a9f53498a97ed84e88bb12
